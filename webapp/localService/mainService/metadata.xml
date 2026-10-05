@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="1.0" xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx" xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" xmlns:sap="http://www.sap.com/Protocols/SAPData">
+    <edmx:DataServices m:DataServiceVersion="2.0">
+        <Schema Namespace="ZMZ_GOOD_ISSUE_SRV" xml:lang="en" sap:schema-version="1" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+            <EntityType Name="item" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Delivery"/>
+                </Key>
+                <Property Name="Delivery" Type="Edm.String" Nullable="false" MaxLength="12" sap:unicode="false" sap:label="Order" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="LotNo" Type="Edm.String" Nullable="false" MaxLength="20" sap:unicode="false" sap:label="Lot Number" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Qty" Type="Edm.Decimal" Nullable="false" Precision="13" Scale="3" sap:unicode="false" sap:label="Delivery Qty" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="MatDesc" Type="Edm.String" Nullable="false" MaxLength="60" sap:unicode="false" sap:label="Description" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Batch" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="Batch" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="BatchQty" Type="Edm.Decimal" Nullable="false" Precision="13" Scale="3" sap:unicode="false" sap:label="Delivery Qty" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Uom" Type="Edm.String" Nullable="false" MaxLength="3" sap:unicode="false" sap:label="Base Unit" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false" sap:semantics="unit-of-measure"/>
+            </EntityType>
+            <EntityType Name="Header" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Delivery"/>
+                </Key>
+                <Property Name="Delivery" Type="Edm.String" Nullable="false" sap:unicode="false"/>
+                <NavigationProperty Name="HEADERTOITEMS" Relationship="ZMZ_GOOD_ISSUE_SRV.HEADERTOITEMS" FromRole="FromRole_HEADERTOITEMS" ToRole="ToRole_HEADERTOITEMS" sap:label="HEADERTOITEMS"/>
+            </EntityType>
+            <Association Name="HEADERTOITEMS" sap:content-version="1">
+                <End Type="ZMZ_GOOD_ISSUE_SRV.Header" Multiplicity="1" Role="FromRole_HEADERTOITEMS"/>
+                <End Type="ZMZ_GOOD_ISSUE_SRV.item" Multiplicity="*" Role="ToRole_HEADERTOITEMS"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_HEADERTOITEMS">
+                        <PropertyRef Name="Delivery"/>
+                    </Principal>
+                    <Dependent Role="ToRole_HEADERTOITEMS">
+                        <PropertyRef Name="Delivery"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <EntityContainer Name="ZMZ_GOOD_ISSUE_SRV_Entities" m:IsDefaultEntityContainer="true" sap:supported-formats="atom json xlsx">
+                <EntitySet Name="itemSet" EntityType="ZMZ_GOOD_ISSUE_SRV.item" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+                <EntitySet Name="HeaderSet" EntityType="ZMZ_GOOD_ISSUE_SRV.Header" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:addressable="false" sap:content-version="1"/>
+                <AssociationSet Name="HEADERTOITEMSSet" Association="ZMZ_GOOD_ISSUE_SRV.HEADERTOITEMS" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="HeaderSet" Role="FromRole_HEADERTOITEMS"/>
+                    <End EntitySet="itemSet" Role="ToRole_HEADERTOITEMS"/>
+                </AssociationSet>
+            </EntityContainer>
+            <Annotation Term="Core.SchemaVersion" String="1.0.0" xmlns="http://docs.oasis-open.org/odata/ns/edm"/>
+            <atom:link rel="self" href="https://vhapzds4ci.sap.almutahida.com.iq:44300/sap/opu/odata/sap/ZMZ_GOOD_ISSUE_SRV/$metadata" xmlns:atom="http://www.w3.org/2005/Atom"/>
+            <atom:link rel="latest-version" href="https://vhapzds4ci.sap.almutahida.com.iq:44300/sap/opu/odata/sap/ZMZ_GOOD_ISSUE_SRV/$metadata" xmlns:atom="http://www.w3.org/2005/Atom"/>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>

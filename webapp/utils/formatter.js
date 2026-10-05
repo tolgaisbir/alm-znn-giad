@@ -1,0 +1,2 @@
+sap.ui.define(["sap/ui/core/format/NumberFormat"],t=>{"use strict";const r=t.getFloatInstance({minFractionDigits:0,maxFractionDigits:2,groupingEnabled:true});return{formatQuantity:function(t){if(!t)return 0;const n=t%1!==0;return n?r.format(t):r.format(Math.trunc(t))},valueParse:function(t){if(!t)return 0;return r.parse(t)}}});
+//# sourceMappingURL=formatter.js.map

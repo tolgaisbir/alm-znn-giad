@@ -1,0 +1,31 @@
+specVersion: "4.0"
+metadata:
+  name: zfiorigid
+type: application
+server:
+  customMiddleware:
+    - name: fiori-tools-proxy
+      afterMiddleware: compression
+      configuration:
+        ignoreCertErrors: false
+        backend:
+          - path: /sap
+            url: http://vhapzds4ci.sap.almutahida.com.iq:44300
+            client: "100"
+            destination: testing_100
+        ui5:
+          path:
+            - /resources
+            - /test-resources
+          url: https://ui5.sap.com
+    - name: fiori-tools-appreload
+      afterMiddleware: compression
+      configuration:
+        port: 35729
+        path: webapp
+        delay: 300
+    - name: fiori-tools-preview
+      afterMiddleware: fiori-tools-appreload
+      configuration:
+        component: zfiorigid
+        ui5Theme: sap_horizon

@@ -1,0 +1,152 @@
+<mvc:View
+    controllerName="zfiorigid.controller.MasterView"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+>
+    <Page id="page">
+        <content>
+            <Toolbar>
+                <Label
+                    text="Delivery:"
+                    width="3.5rem"
+                />
+                <Input
+                    id="_IDGenButton010"
+                    value="{inputModel>/Delivery}"
+                    showValueHelp="true"
+                    valueHelpIconSrc="sap-icon://qr-code"
+                    valueHelpRequest="onBarcodeScan"
+                    submit="onPressEnter"
+                />
+            </Toolbar>
+            <Table
+                id="idMaterialTable"
+                inset="false"
+                itemPress="onClick"
+                items="{postModel>/ITEM/}"
+            >
+                <headerToolbar>
+                    <Toolbar id="_IDGenToolbar">
+                        <content>
+                            <Label
+                                id="label"
+                                text="{= ${postModel>/SALES_ORDER} ? ${postModel>/SALES_ORDER} + ' / ' + ${postModel>/ORDER_ITEM} : ''}"
+                            />
+                        </content>
+                    </Toolbar>
+                </headerToolbar>
+                <columns>
+                    <Column
+                        id="_IDGenColumn"
+                        width="6em"
+                    >
+                        <Text
+                            id="_IDGenText"
+                            text="Item #"
+                        />
+                    </Column>
+                    <Column
+                        id="_IDGenColumn1"
+                        width="22em"
+                    >
+                        <Text
+                            id="_IDGenText1"
+                            text="Material Description with Variant Char"
+                            wrapping="true"
+                        />
+                    </Column>
+                    <Column
+                        id="_IDGenColumn2"
+                        minScreenWidth="Tablet"
+                        demandPopin="true"
+                        popinDisplay="Inline"
+                        hAlign="Center"
+                    >
+                        <Text
+                            id="_IDGenText2"
+                            text="Qty and UOM"
+                        />
+                    </Column>
+                    <Column
+                        id="_IDGenColumn3"
+                        minScreenWidth="Tablet"
+                        demandPopin="true"
+                        hAlign="Center"
+                        popinDisplay="Inline"
+                    >
+                        <Text
+                            id="_IDGenText3"
+                            text="Picked Qty"
+                        />
+                    </Column>
+                    <Column
+                        id="_IDGenColumn4"
+                        hAlign="Center"
+                        minScreenWidth="Desktop"
+                        demandPopin="true"
+                        popinDisplay="Inline"
+                    >
+                        <Text
+                            id="_IDGenText4"
+                            text="LOT #"
+                        />
+                    </Column>
+                    <Column
+                        id="_IDGenColumn5"
+                        hAlign="End"
+                        minScreenWidth="Desktop"
+                        demandPopin="true"
+                        popinDisplay="Inline"
+                    >
+                        <Text
+                            id="_IDGenText5"
+                            text="Status"
+                        />
+                    </Column>
+                </columns>
+                <items>
+                    <ColumnListItem
+                        id="_IDGenColumnListItem"
+                        type="Active"
+                    >
+                        <cells>
+                            <ObjectIdentifier
+                                id="_IDGenObjectIdentifier"
+                                title="{item}"
+                                text="{postModel>ITEMNO}"
+                            />
+                            <Text
+                                id="_IDGenText6"
+                                text="{postModel>MATNR} / {postModel>MATDESC}"
+                            />
+                            <Text
+                                id="_IDGenText27"
+                                text="{
+                                    path: 'postModel>QTY',
+                                    formatter: '.formatter.formatQuantity'
+                                } {postModel>UOM}"
+                            />
+                            <Text
+                                id="_IDGenText217"
+                                text="{
+                                    path: 'postModel>PICKED_QTY',
+                                    formatter: '.formatter.formatQuantity'
+                                }"
+                            />
+                            <Text
+                                id="_IDGenText17"
+                                text="{postModel>LOT_NO}"
+                            />
+                            <ObjectStatus
+                                id="_IDGenText73"
+                                text="{postModel>STATUS}"
+                                state="{= ${postModel>PICKED_QTY} === 0 ? 'Error' : ${postModel>PICKED_QTY} === ${postModel>QTY} ?'Success' : 'Warning'}"
+                            />
+                        </cells>
+                    </ColumnListItem>
+                </items>
+            </Table>
+        </content>
+    </Page>
+</mvc:View>

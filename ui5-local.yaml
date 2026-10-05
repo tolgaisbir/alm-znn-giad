@@ -1,0 +1,40 @@
+specVersion: "4.0"
+metadata:
+  name: zfiorigid
+type: application
+framework:
+  name: SAPUI5
+  version: 1.138.1
+  libraries:
+    - name: sap.m
+    - name: sap.ui.core
+    - name: sap.ndc
+    - name: sap.f
+    - name: sap.ui.comp
+    - name: sap.ui.generic.app
+    - name: sap.ui.table
+    - name: sap.ushell
+    - name: themelib_sap_bluecrystal
+    - name: themelib_sap_horizon
+server:
+  customMiddleware:
+    - name: fiori-tools-proxy
+      afterMiddleware: compression
+      configuration:
+        ignoreCertErrors: false
+        backend:
+          - path: /sap
+            url: http://vhapzds4ci.sap.almutahida.com.iq:44300
+            client: "100"
+            destination: testing_100_CLONING
+    - name: fiori-tools-appreload
+      afterMiddleware: compression
+      configuration:
+        port: 35729
+        path: webapp
+        delay: 300
+    - name: fiori-tools-preview
+      afterMiddleware: fiori-tools-appreload
+      configuration:
+        component: zfiorigid
+        ui5Theme: sap_horizon

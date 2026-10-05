@@ -1,0 +1,15 @@
+/* Enter your custom styles here */
+.centerTitle .sapMDialogTitle .sapMBarTitle {
+    text-align: center;
+    width: auto;
+}
+
+.customButton {
+    height: 40px !important;
+}
+
+.customButton .sapMBtnInner {
+    height: 40px !important;
+    line-height: 40px !important;
+    align-items: center !important;
+}
